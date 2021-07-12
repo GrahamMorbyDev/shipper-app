@@ -1,5 +1,5 @@
 <template>
-    <b-modal id="create_shipper" title="Create a shipper" hide-footer="true">
+    <b-modal id="create_shipper" title="Create a shipper" :hide-footer="true">
         <b-form-group
             id="input-group-1"
             label="Shipper's name:"
@@ -348,11 +348,20 @@ export default {
             this.axios.post('api/shippers/store', data).then(response => {
                 this.create_message = response.data.data;
                 this.$bvModal.hide('create_shipper');
+                this.clearForm();
                 this.$emit('newShipper');
             }).catch(e => {
                 console.error(e);
             })
-        }
+        },
+        clearForm() {
+            this.shipper_name = null;
+            this.address_1 = null;
+            this.address_2 = null;
+            this.address_3 = null;
+            this.country = null;
+            this.post_code = null;
+        },
     }
 }
 </script>

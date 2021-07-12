@@ -1,12 +1,12 @@
 <template>
-    <b-modal id="update_shipper" title="Update shipper" hide-footer="true">
+    <b-modal id="update_shipper" title="Update shipper" :hide-footer="true">
         <b-form-group
             id="input-group-1"
             label="Shipper's name:"
-            label-for="input-1"
+            label-for="shippers_name"
         >
             <b-form-input
-                id="input-1"
+                id="shippers_name"
                 v-model="shipper_name"
                 type="text"
                 required
@@ -16,10 +16,10 @@
         <b-form-group
             id="input-group-2"
             label="Address Line 1:"
-            label-for="input-2"
+            label-for="address_1"
         >
             <b-form-input
-                id="input-2"
+                id="address_1"
                 v-model="address_1"
                 type="text"
                 required
@@ -28,10 +28,10 @@
         <b-form-group
             id="input-group-3"
             label="Address Line 2:"
-            label-for="input-3"
+            label-for="address_2"
         >
             <b-form-input
-                id="input-3"
+                id="address_2"
                 v-model="address_2"
                 type="text"
                 required
@@ -40,10 +40,10 @@
         <b-form-group
             id="input-group-4"
             label="Address Line 3:"
-            label-for="input-4"
+            label-for="address_3"
         >
             <b-form-input
-                id="input-4"
+                id="address_3"
                 v-model="address_3"
                 type="text"
             ></b-form-input>
@@ -51,17 +51,17 @@
         <b-form-group
             id="input-group-5"
             label="Country:"
-            label-for="input-5"
+            label-for="country"
         >
             <b-form-select v-model="country" :options="options"></b-form-select>
         </b-form-group>
         <b-form-group
             id="input-group-6"
             label="Postcode:"
-            label-for="input-6"
+            label-for="post_code"
         >
             <b-form-input
-                id="input-6"
+                id="post_code"
                 v-model="post_code"
                 type="text"
             ></b-form-input>

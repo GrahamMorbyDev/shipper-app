@@ -40,7 +40,7 @@ class ContactController extends Controller
      */
     public function show(Request $request)
     {
-        $contacts = Contact::where('id', $request->input('shipper_id'))->get();
+        $contacts = Contact::where('shipper_id', $request->input('shipper_id'))->get();
 
         $data = [
             'status' => 200,

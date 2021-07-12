@@ -4,7 +4,7 @@
         <b-container class="mt-5">
             <b-row>
                 <b-col class="mb-3">
-                    <h2>Shippers Information <b-icon-arrow-up></b-icon-arrow-up></h2>
+                    <h2>Shippers Information</h2>
                 </b-col>
             </b-row>
             <b-row>

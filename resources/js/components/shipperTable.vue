@@ -35,12 +35,9 @@
                 <b-button variant="success" @click="$bvModal.show('create_shipper')">Create shipper</b-button>
             </b-col>
         </b-row>
-        <update-shipper :shipper_id="shipper_id" @updated="fetchShippers"></update-shipper>
-        <add-contact    :shipper_id="shipper_id"></add-contact>
-        <add-shipper @newShipper="fetchShippers"></add-shipper>
-        <b-table v-show="contacts != null" class="mt-5" striped hover responsive bordered :items="contacts" :fields="contact_fields" :tbody-tr-class="rowClass">
-
-            <template v-slot:table-caption
+        <b-table v-show="contacts != null" class="mt-5" striped hover responsive bordered :items="contacts"
+                 :fields="contact_fields" :tbody-tr-class="rowClass">
+             <template v-slot:table-caption
             >Green = Primary
             </template>        </b-table>
         <b-row>
@@ -48,6 +45,9 @@
                 <b-button variant="danger" @click="closeContacts">Close Contacts</b-button>
             </b-col>
         </b-row>
+        <update-shipper :shipper_id="shipper_id" @updated="fetchShippers"></update-shipper>
+        <add-contact    :shipper_id="shipper_id"></add-contact>
+        <add-shipper @newShipper="fetchShippers"></add-shipper>
     </div>
 </template>
 
@@ -62,23 +62,20 @@ export default {
         addContact,
         addShipper
     },
+    computed: {
+        shippers() {
+            return this.$store.getters.shippersList
+        }
+    },
     data() {
         return {
             contact_fields: ['contact_name', 'contact_number'],
             fields: ['id', 'shippers_name', 'address_1', 'address_2', 'address_3', 'post_code','contacts', 'update'],
-            shippers: [],
             shipper_id: null,
             contacts: null
         }
     },
     methods: {
-        fetchShippers() {
-            this.axios.get('api/shippers/get').then(response => {
-               this.shippers = response.data.data;
-            }).catch(e => {
-                console.log(e);
-            });
-        },
         fetchContacts() {
             this.axios.get('api/contacts/get', {
                 params: {
@@ -91,18 +88,18 @@ export default {
             });
         },
         update(id) {
-            console.warn('Updating Shipper');
+            this.contacts = null;
             this.shipper_id = id;
             this.$bvModal.show('update_shipper');
         },
         addContact(id) {
-            console.warn('Adding Contacts');
+            this.contacts = null;
             this.shipper_id = id;
             this.$bvModal.show('create_contact');
         },
         showContacts(id) {
-            console.warn('Showing Contacts');
             this.shipper_id = id;
+            this.contacts = null;
             this.fetchContacts();
         },
         closeContacts() {
@@ -113,10 +110,16 @@ export default {
             if (item.is_primary === 0) return 'table-none';
             if (item.is_primary === 1) return 'table-success';
         },
+        fetchShippers() {
+            this.$store.dispatch('getShippers');
+        }
     },
     created() {
-        this.fetchShippers();
-    }
+        this.$store.dispatch('getShippers');
+    },
+    mounted() {
+
+    },
 
 }
 </script>
